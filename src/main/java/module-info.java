@@ -1,4 +1,4 @@
-module com.project.efrenn {
+module com.project.david {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;

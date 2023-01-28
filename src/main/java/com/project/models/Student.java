@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import com.project.dbhandler.PostgresConnect;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 
@@ -82,6 +83,10 @@ public class Student extends Person {
     public SimpleIntegerProperty ageProperty(){
         return new SimpleIntegerProperty(this.getAge());
     }
+    public SimpleObjectProperty birthdateProperty(){
+        return new SimpleObjectProperty(this.getBirthDate());
+    }
+
     public SimpleStringProperty phoneProperty(){
         return new SimpleStringProperty(this.getPhoneNumber());
     }
