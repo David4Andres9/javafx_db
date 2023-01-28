@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=javafxdb
+      - POSTGRES_USER=David
+      - POSTGRES_PASSWORD=David@Puce22
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+  
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=david@domain.com
+      - PGADMIN_DEFAULT_PASSWORD=david123
+    ports:
+      - 5050:80
+    volumes:
+      - pgadmin:/srv/pgadmin
+volumes:
+  pgdata:
+  pgadmin:
