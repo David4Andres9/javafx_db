@@ -1,6 +1,7 @@
 package com.project.david;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import com.project.models.Student;
 
@@ -21,6 +22,7 @@ public class StudentListController {
     @FXML private TableColumn lastNameCol;
     @FXML private TableColumn emailCol;
     @FXML private TableColumn ageCol;
+    @FXML private TableColumn dateCol;
     @FXML private TableColumn phoneCol;
     @FXML private TableColumn levelCol;
 
@@ -31,7 +33,8 @@ public class StudentListController {
         this.firstNameCol.setCellValueFactory(new PropertyValueFactory<Student, String>("firstName"));
         this.lastNameCol.setCellValueFactory(new PropertyValueFactory<Student, String>("lastName"));
         this.emailCol.setCellValueFactory(new PropertyValueFactory<Student, String>("email"));
-        this.ageCol.setCellValueFactory(new PropertyValueFactory<Student, Integer>("age"));
+        this.dateCol.setCellValueFactory(new PropertyValueFactory<Student, LocalDate>("birthdate"));
+        //this.ageCol.setCellValueFactory(new PropertyValueFactory<Student, Integer>("age"));
         this.phoneCol.setCellValueFactory(new PropertyValueFactory<Student, String>("phone"));
         this.levelCol.setCellValueFactory(new PropertyValueFactory<Student, Integer>("level"));
         this.studentData = data.getStudents();
