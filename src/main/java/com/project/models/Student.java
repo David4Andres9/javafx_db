@@ -1,6 +1,7 @@
 package com.project.models;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -90,7 +91,7 @@ public class Student extends Person {
 
     public void save() {
         final String sql = "INSERT INTO students" + 
-        " (ci,first_name,last_name,email,age,phone,level) VALUES " + 
+        " (ci,first_name,last_name,email,birthdate,phone,level) VALUES " + 
         " (?, ?, ?, ?, ?, ?, ?);";
         PostgresConnect pgConnect = new PostgresConnect();
         Connection connection = pgConnect.getConnection();
@@ -99,7 +100,7 @@ public class Student extends Person {
             preparedStatement.setString(2, this.getFirstName());
             preparedStatement.setString(3, this.getLastName());
             preparedStatement.setString(4, this.getEmail());
-            preparedStatement.setLong(5, this.getAge());
+            preparedStatement.setDate(5, Date.valueOf(getBirthDate()));
             preparedStatement.setString(6, this.getPhoneNumber());
             preparedStatement.setLong(7, this.getLevel());
             preparedStatement.executeUpdate();
