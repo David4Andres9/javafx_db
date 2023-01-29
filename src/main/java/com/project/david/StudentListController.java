@@ -56,6 +56,9 @@ public class StudentListController {
     private void closeStudentForm() throws IOException {
         System.exit(0);
     }
+    /**
+     * Implements function to delete student selected
+     */
     @FXML
     private void delete(){
         Student student=(Student)studentsTableView.getSelectionModel().getSelectedItem();
@@ -77,4 +80,7 @@ public class StudentListController {
             }
         }
     }
+
+
+    
 }

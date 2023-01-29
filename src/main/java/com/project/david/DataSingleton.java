@@ -17,7 +17,9 @@ public class DataSingleton {
     PostgresConnect pgConnect = new PostgresConnect();
     private static final DataSingleton instance = new DataSingleton();
     private ObservableList<Student> studentList = FXCollections.observableArrayList();
-    
+    /**
+     * Implements function to show all the students of the db.
+     */
     private void show(){
         String sql = "SELECT * FROM students";
         try (Connection connection = pgConnect.getConnection();Statement instruccion = connection.createStatement();ResultSet rs = instruccion.executeQuery(sql);){
@@ -38,7 +40,9 @@ public class DataSingleton {
         
     }
 
-    
+    /**
+     * Call the function show
+     */
     private DataSingleton () { 
         this.show();
 
@@ -58,9 +62,12 @@ public class DataSingleton {
     public void addStudent (Student student) {
         this.studentList.add(student);
     }
-    
+    /**
+     * Call the function delete from StudentListController
+     * @param student
+     */
     public void deleteStudent (Student student) {
-        studentList.remove(student);
+        this.studentList.remove(student);
         
     }
 }
