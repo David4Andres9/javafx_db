@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import com.project.models.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableView;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,13 +14,11 @@ import java.sql.SQLException;
 import com.project.dbhandler.PostgresConnect;
 
 public class DataSingleton {
-
+    PostgresConnect pgConnect = new PostgresConnect();
     private static final DataSingleton instance = new DataSingleton();
-    private ObservableList<Student> studentList = FXCollections.observableArrayList(
-        
-    );
+    private ObservableList<Student> studentList = FXCollections.observableArrayList();
+    
     private void show(){
-        PostgresConnect pgConnect = new PostgresConnect();
         String sql = "SELECT * FROM students";
         try (Connection connection = pgConnect.getConnection();Statement instruccion = connection.createStatement();ResultSet rs = instruccion.executeQuery(sql);){
             while (rs.next()) {
@@ -36,6 +37,8 @@ public class DataSingleton {
         }
         
     }
+
+    
     private DataSingleton () { 
         this.show();
 
@@ -54,5 +57,10 @@ public class DataSingleton {
 
     public void addStudent (Student student) {
         this.studentList.add(student);
+    }
+    
+    public void deleteStudent (Student student) {
+        studentList.remove(student);
+        
     }
 }
