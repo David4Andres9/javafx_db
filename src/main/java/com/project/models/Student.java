@@ -3,18 +3,21 @@ package com.project.models;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
-
 import com.project.dbhandler.PostgresConnect;
-
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 
 
 public class Student extends Person {
-
+    private static ObservableList<Student> studentList = FXCollections.observableArrayList();
     private int level;
 
     /**
@@ -49,10 +52,7 @@ public class Student extends Person {
         this.level = level;
     }
 
-    /**
-     * Print the Student´s Complementary Information
-     * @see JavaOPP.studentManagement.Person#print()
-     */
+    
     @Override
     public void print() {
         super.print();
@@ -114,4 +114,42 @@ public class Student extends Person {
         }
     }
     
-}
+
+    public static ObservableList<Student> show(){
+        String sql = "SELECT * FROM students";
+        ObservableList<Student> studentList = FXCollections.observableArrayList();
+        PostgresConnect pgConnect = new PostgresConnect();
+        try (Connection connection = pgConnect.getConnection();Statement instruccion = connection.createStatement();ResultSet rs = instruccion.executeQuery(sql);){
+            while (rs.next()) {
+                String ci= rs.getString("ci");
+                String first_name= rs.getString("first_name");
+                String last_name= rs.getString("last_name");
+                String email= rs.getString("email");
+                LocalDate birthdate= rs.getDate("birthdate").toLocalDate();
+                String phone= rs.getString("phone");
+                int level= rs.getInt("level");
+                studentList.add(new Student(ci, first_name, last_name, birthdate, email, phone, level));
+              }
+              return studentList;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        
+    }
+    
+    public void delete(String studentID, Student student){
+        PostgresConnect pgConnection = new PostgresConnect();
+        String sql = "delete from students where ci = ?"; 
+            
+        try {
+            Connection connection = pgConnection.getConnection();
+            PreparedStatement instruccion = connection.prepareStatement(sql);
+            instruccion.setString(1, studentID); 
+            instruccion.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
