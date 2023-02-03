@@ -12,9 +12,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 public class StudentFormController {
-    
-    DataSingleton data = DataSingleton.getInstance();
-    
     @FXML TextField txtStudentID;
     @FXML TextField txtStudentName;
     @FXML TextField txtStudentLastName;
@@ -22,14 +19,16 @@ public class StudentFormController {
     @FXML TextField txtStudentEmail;
     @FXML TextField txtStudentPhone;
     @FXML ComboBox cbStudentLevel;
+    
 
     ObservableList<Integer> levelItems = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6);
+    
  
     @FXML
-    public void initialize() {
+    private void initialize() {
         cbStudentLevel.setItems(levelItems);
     }
-
+    
     @FXML
     private void saveStudent() throws IOException {
             Student student = new Student(
@@ -42,13 +41,15 @@ public class StudentFormController {
             Integer.parseInt(cbStudentLevel.getValue().toString()));
             
         student.save();
-        data.addStudent(student);
         App.setRoot("studentList");
+        
     }
 
     @FXML
     private void cancel() throws IOException {
         App.setRoot("studentList");
+    
+        
     }
 
     /*@Override
